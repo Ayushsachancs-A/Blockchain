@@ -1,6 +1,6 @@
 const Blockchain = require('./index');
 const Block = require('./block');
-const cryptoHash = require('../util/crypto-hash');
+const {cryptoHash} = require('../util');
 
 describe('Blockchain', () => { 
     let blockchain,newChain,originalChain;
@@ -124,7 +124,7 @@ describe('Blockchain', () => {
                 it('replaces the chain', () => {
                     expect(blockchain.chain).toEqual(newChain.chain);
                 });
-                it ('logs about the chain replacement', () => {                    blockchain.replaceChain(newChain.chain);
+                it ('logs about the chain replacement', () => {
                     expect(logMock).toHaveBeenCalled(); 
                 });
             });
