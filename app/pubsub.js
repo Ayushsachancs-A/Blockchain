@@ -1,5 +1,4 @@
 const PubNub = require('pubnub');
-const Block = require('./block');
 
 const credentials = {
     publishKey: 'pub-c-6fb0d3b8-6754-409b-ba48-0363c1ebe208',
