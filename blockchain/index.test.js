@@ -104,6 +104,7 @@ describe('Blockchain', () => {
                 expect(errorMock).toHaveBeenCalled();
             });
         });
+
         describe('when the new chain is longer', () => {
             beforeEach(() => {
                 newChain.addBlock({ data: 'Bears' });
@@ -135,6 +136,18 @@ describe('Blockchain', () => {
                 });
             });
         });
+
+        describe('and the `validateTransactions` flag is true', () => {
+            it('calls validTransactionsData()', () => {
+                const validTransactionsDataMock = jest.fn();
+                blockchain.validTransactionsData = validTransactionsDataMock;
+                newChain.addBlock({ data: 'foo' });
+                blockchain.replaceChain(newChain.chain, true);
+                expect(validTransactionsDataMock).toHaveBeenCalled();
+            });
+         });
+
+
     });
 
     describe('validTransactionsData()', () => {
