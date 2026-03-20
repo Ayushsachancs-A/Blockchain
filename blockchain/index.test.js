@@ -183,7 +183,25 @@ describe('Blockchain', () => {
 
         describe('when the transaction data has a malformed input', () => {
             it('returns false and logs an error', () => {
-             });
+                wallet.balance = 9000;
+                const evilOutputMap = {
+                    [wallet.publicKey]: 8900,
+                    fooRecipient: 100
+                };
+                const evilTransaction = {
+                    input: {
+                        timestamp: Date.now(),
+                        amount: wallet.balance,
+                        address: wallet.publicKey,
+                        signature: wallet.sign(evilOutputMap)
+                    },
+                    outputMap: evilOutputMap
+                };
+                newChain.addBlock({ data: [evilTransaction, rewardTransaction] });
+                expect(blockchain.validTransactionsData({ chain: newChain.chain })).toBe(false);
+                expect(errorMock).toHaveBeenCalled();
+
+            });
         });
 
         describe ('when the transaction data has a duplicate transaction', () => {
