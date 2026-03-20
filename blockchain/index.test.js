@@ -206,6 +206,9 @@ describe('Blockchain', () => {
 
         describe ('when the transaction data has a duplicate transaction', () => {
             it('returns false and logs an error', () => {
+                newChain.addBlock({ data: [transaction, transaction,transaction, rewardTransaction] });
+                expect(blockchain.validTransactionsData({ chain: newChain.chain })).toBe(false);
+                expect(errorMock).toHaveBeenCalled();
             });
         });
     });
