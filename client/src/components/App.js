@@ -1,9 +1,31 @@
 import React, {Component} from "react";
+import Blocks from './Blocks'
 
 
 class App extends Component {
+    state = {walletInfo: {}};
+    componentDidMount() {
+        fetch('/api/wallet-info')
+        .then(response => response.json())
+        .then(json => this.setState({ walletInfo: json }));
+    }
+
+
+
+
     render() {
-        return (<div>Welcome to the App</div>);
+        const {address, balance} = this.state.walletInfo;
+
+
+        return (
+        <div>
+            <div>Welcome to the App</div>
+            <div>Address: {address}</div>
+            <div>Balance: {balance}</div>
+            <br/>
+            <Blocks/>
+        </div>
+        );
     }
 }
 
